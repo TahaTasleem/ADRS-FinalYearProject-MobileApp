@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AccDet App</string>
+    <string-array name="vehicleType">
+        <item>commercial</item>
+        <item>private</item>
+    </string-array>
+</resources>
