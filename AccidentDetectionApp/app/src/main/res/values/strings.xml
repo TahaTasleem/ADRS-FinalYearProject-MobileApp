@@ -4,4 +4,8 @@
         <item>commercial</item>
         <item>private</item>
     </string-array>
+    <string name="navigationopen">Open Navigation</string>
+    <string name="navigationclose">Close Navigation</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
