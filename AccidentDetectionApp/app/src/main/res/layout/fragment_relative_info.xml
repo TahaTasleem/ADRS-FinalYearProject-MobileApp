@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".relative_info">
 
     <ScrollView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/bb">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,10 +26,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.207" />
+                app:layout_constraintVertical_bias="0.156" />
 
             <EditText
                 android:id="@+id/firstname"
@@ -152,20 +152,44 @@
                 android:id="@+id/updatebtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/btn_bg"
                 android:backgroundTint="@color/white"
                 android:shadowColor="@color/white"
                 android:text="Update"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/rel"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/rel"
-                app:layout_constraintTop_toBottomOf="@+id/rel"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/rel" />
+
+            <Button
+                android:id="@+id/delbtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@color/white"
+                android:text="Delete"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/updatebtn"
+                app:layout_constraintStart_toStartOf="@+id/updatebtn"
+                app:layout_constraintTop_toBottomOf="@+id/updatebtn"
+                 />
+
+            <Button
+                android:id="@+id/addbtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@color/white"
+                android:text="Add"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/delbtn"
+                app:layout_constraintStart_toStartOf="@+id/delbtn"
+                app:layout_constraintTop_toBottomOf="@+id/delbtn"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 </FrameLayout>

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity"
-
+    tools:openDrawer="start"
     >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,11 +22,11 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#90ABB2"
+                android:background="#4da6ff"
                 android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:navigationIcon="@drawable/menu1"
-                app:title="ADRS App"
+                app:title="ADRS"
                 app:titleMarginStart="10dp"
                 app:titleTextColor="@color/white"
                 tools:ignore="MissingConstraints" />
@@ -38,23 +38,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/appbarlayout">
 
-            <Button
-                android:id="@+id/startride"
-                android:layout_width="wrap_content"
-                android:layout_height="143dp"
-                android:layout_gravity="center"
-                android:backgroundTint="#3F51B5"
-                android:gravity="center"
-                android:longClickable="false"
-                android:rotationX="0"
-                android:shadowColor="#753F51B5"
-                android:text=" Start Ride"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:typeface="normal"
-                android:visibility="visible"
-                app:cornerRadius="60dp" />
+
         </FrameLayout>
 
     </RelativeLayout>

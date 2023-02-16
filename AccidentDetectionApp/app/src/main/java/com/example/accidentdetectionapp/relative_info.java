@@ -1,15 +1,20 @@
 package com.example.accidentdetectionapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,8 +24,10 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -30,11 +37,15 @@ import okhttp3.ResponseBody;
  * create an instance of this fragment.
  */
 public class relative_info extends Fragment {
-    public String id,token;
+    public String id,token,relativeid;
+    public String firstName,lastName,cell,alternativeCell,relation2;
     EditText firstname,lastname,cellno,alternativecellno,relation;
-    Button updatebtn;
+    Button updatebtn,delbtn,addbtn;
     public String getUrl= "http://192.168.18.6:3000/api/rider/relative/all/";
+    public String putUrl= "http://192.168.18.6:3000/api/rider/relative/update/";
+    public String delUrl= "http://192.168.18.6:3000/api/rider/relative/delete/";
     private final OkHttpClient client = new OkHttpClient();
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,6 +100,8 @@ public class relative_info extends Fragment {
         alternativecellno = view.findViewById(R.id.alternativeno);
         relation = view.findViewById(R.id.rel);
         updatebtn = view.findViewById(R.id.updatebtn);
+        delbtn = view.findViewById(R.id.delbtn);
+        addbtn = view.findViewById(R.id.addbtn);
 
         Request request = new Request.Builder().header("Cookie", "token="+token).url(getUrl+id).build();
         client.newCall(request).enqueue(new Callback() {
@@ -102,11 +115,12 @@ public class relative_info extends Fragment {
                     JSONArray json2 = json.getJSONArray("message");
                     for (int i = 0; i < json2.length(); i++) {
                         JSONObject jsonobject = json2.getJSONObject(i);
-                        String firstName = jsonobject.getString("firstName");
-                        String lastName = jsonobject.getString("lastName");
-                        String cell = jsonobject.getString("cell");
-                        String alternativeCell = jsonobject.getString("alternativeCell");
-                        String relation2 = jsonobject.getString("relation");
+                        relativeid = jsonobject.getString("_id");
+                        firstName = jsonobject.getString("firstName");
+                        lastName = jsonobject.getString("lastName");
+                        cell = jsonobject.getString("cell");
+                        alternativeCell = jsonobject.getString("alternativeCell");
+                        relation2 = jsonobject.getString("relation");
                         setText(firstname,firstName);
                         setText(lastname,lastName);
                         setText(cellno,cell);
@@ -116,6 +130,70 @@ public class relative_info extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+        updatebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JSONObject jsonObject = new JSONObject();
+                JSONObject jsonObject1 = new JSONObject();
+                try {
+                    jsonObject1.put("firstName",firstname.getText().toString());
+                    jsonObject1.put("lastName",lastname.getText().toString());
+                    jsonObject1.put("cell",cellno.getText().toString());
+                    jsonObject1.put("alternativeCell",alternativecellno.getText().toString());
+                    jsonObject1.put("relation",relation.getText().toString());
+                    jsonObject.put("updates",jsonObject1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                OkHttpClient client = new OkHttpClient();
+                RequestBody body = RequestBody.create(JSON, String.valueOf(jsonObject));
+                okhttp3.Request request = new Request.Builder().header("Cookie", "token="+token).url(putUrl+relativeid).put(body).build();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        call.cancel();
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getActivity(),"Data Updated Successfully!",Toast.LENGTH_SHORT).show();                            }
+                        });
+                        Log.i("Success","response is"+response.body().string());
+                    }
+                });
+            }
+        });
+        delbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OkHttpClient client = new OkHttpClient();
+                okhttp3.Request request = new Request.Builder().header("Cookie", "token="+token).url(delUrl+relativeid).delete().build();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+                    @Override public void onResponse(Call call, Response response) throws IOException {
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getActivity(),"Relative Deleted Successfully!",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }});
+            }
+        });
+
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(getActivity(),Relative_register.class);
+                intent2.putExtra("token",token);
+                intent2.putExtra("id",relativeid);
+                startActivity(intent2);
             }
         });
         return view;

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    android:background="#91ACB3"
+    android:background="#4da6ff"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="20dp"
@@ -12,18 +12,13 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/motorcycle"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accident Detection"
+        android:text="Accident Detection and Reporting"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
-
-
-
-
-
-    
+        android:textSize="15sp"
+        android:textStyle="bold" />
     
 </LinearLayout>

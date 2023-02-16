@@ -2,11 +2,13 @@ package com.example.accidentdetectionapp;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Home extends Fragment {
+    Button startride;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +62,23 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view =  inflater.inflate(R.layout.fragment_home, container, false);
+        startride = view.findViewById(R.id.startride);
+        startride.setText("Start Ride");
+        startride.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (startride.getText().toString()=="Start Ride")
+                {
+                    startride.setText("Stop Ride");
+                    startride.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.btnred));
+                }
+                else if (startride.getText().toString()=="Stop Ride"){
+                    startride.setText("Start Ride");
+                    startride.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(),R.color.button));
+                }
+            }
+        });
+        return view;
     }
 }

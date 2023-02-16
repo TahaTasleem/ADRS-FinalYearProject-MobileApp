@@ -26,14 +26,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/appsplash"
         android:layout_centerInParent="true"
-        android:text="Accident Detection App"
+        android:text="Accident Detection and Reporting"
         android:textColor="@color/black"
-        android:textSize="25dp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appsplash"
-        app:layout_constraintVertical_bias="0.072" />
+        app:layout_constraintVertical_bias="0.066" />
 </androidx.constraintlayout.widget.ConstraintLayout>

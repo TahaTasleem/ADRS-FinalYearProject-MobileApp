@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity  {
     NavigationView navigationView;
     Toolbar toolbar;*/
     public String id,token;
-    Button startride;
     List<String> usernames = new ArrayList<String>();
     List<String> ids = new ArrayList<String>();
     public String getUrl= "http://192.168.18.6:3000/api/rider/";
@@ -86,7 +85,6 @@ public class MainActivity extends AppCompatActivity  {
         Toolbar toolbar = findViewById(R.id.toolbar);
         NavigationView navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawerlayout);
-        startride = findViewById(R.id.startride);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,8 +110,8 @@ public class MainActivity extends AppCompatActivity  {
                     case R.id.home:
                         replaceFragement(new Home());
                         break;
-                    case R.id.relative_info:
-                        relative_info obj2 = new relative_info();
+                    case R.id.relatives:
+                        relatives obj2 = new relatives();
                         obj2.setArguments(bundle);
                         replaceFragement(obj2);
                         break;
@@ -122,13 +120,6 @@ public class MainActivity extends AppCompatActivity  {
                         break;
                 }
                 return true;
-            }
-        });
-        startride.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startride.setText("Stop Ride");
-                startride.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.purple_200));
             }
         });
         /*drawerLayout = findViewById(R.id.drawerlayout);
