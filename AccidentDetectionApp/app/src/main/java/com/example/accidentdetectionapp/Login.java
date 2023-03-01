@@ -35,6 +35,7 @@ public class Login extends AppCompatActivity {
     public static int i;
     public String postUrl= "http://192.168.18.6:3000/api/rider/login";
     private String getUrl= "http://192.168.18.6:3000/api/rider/relative/all/";
+//    private String getUrl="http://127.0.0.1:8000/detectAccident/?input=[[1,1,1,1,1,1],[2,2,2,2,2,2],[3,3,3,3,3,3]]";
     JSONObject jsonObject = new JSONObject();
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -72,7 +73,7 @@ public class Login extends AppCompatActivity {
                         String name = "",token1= "",id = "";
                         try {
                             JSONObject json = new JSONObject(responseBody);
-                            JSONObject json2 = json.getJSONObject("valid");
+                            JSONObject json2 = json.getJSONObject("validObj");
                             name =json2.getString("firstName");
                             id = json2.getString("_id");
                             token1 = json.getString("token");
@@ -122,6 +123,7 @@ public class Login extends AppCompatActivity {
 
     public void Relativeexits(String token, String id) {
         Request request = new Request.Builder().header("Cookie", "token="+token).url(getUrl+id).build();
+//        Request request = new Request.Builder().url(getUrl).build();
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -129,7 +131,7 @@ public class Login extends AppCompatActivity {
             }
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    String responseBody = response.body().string();
+                    String responseBody = response.body().string();Log.i("s",responseBody);
                     try {
                         JSONObject json = new JSONObject(responseBody);
                         JSONArray json2 = json.getJSONArray("message");
