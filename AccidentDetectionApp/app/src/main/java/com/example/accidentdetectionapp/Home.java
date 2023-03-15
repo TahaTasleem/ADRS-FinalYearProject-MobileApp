@@ -1,22 +1,58 @@
 package com.example.accidentdetectionapp;
 
-import android.os.Bundle;
+import static android.content.Context.SENSOR_SERVICE;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Home#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Home extends Fragment {
+public class Home extends Fragment implements SensorEventListener {
     Button startride;
+    private String sensorList = "[";
+    private List<Float> GyroList = new ArrayList<>();
+    public String endpointUrl = "http://192.168.18.6:5000/detectAccident?input=";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,14 +98,34 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         startride = view.findViewById(R.id.startride);
         startride.setText("Start Ride");
+
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleAtFixedRate(() -> callApi(), 0, 5, TimeUnit.SECONDS);
         startride.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (startride.getText().toString()=="Start Ride")
                 {
+                    SensorManager sensorManager = (SensorManager) getActivity().getSystemService(SENSOR_SERVICE);
+                    if (sensorManager != null){
+                        // Getting Sensor
+                        Sensor acceleroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                        Sensor gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+                        // Registering Sensor
+                        if(acceleroSensor != null){
+                            sensorManager.registerListener(Home.this,acceleroSensor, SensorManager.SENSOR_DELAY_NORMAL );
+                        }
+                        if(gyroscope != null){
+                            sensorManager.registerListener(Home.this, gyroscope, SensorManager.SENSOR_DELAY_NORMAL );
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(), "Sensor service is not detected.", Toast.LENGTH_SHORT).show();
+                    }
                     startride.setText("Stop Ride");
                     startride.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.btnred));
                 }
@@ -81,4 +137,68 @@ public class Home extends Fragment {
         });
         return view;
     }
+    public void onSensorChanged(SensorEvent sensorEvent) {
+
+        String AcceleroList = "[";
+
+        if(sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE){
+            GyroList.add(sensorEvent.values[0]);
+            GyroList.add(sensorEvent.values[1]);
+            GyroList.add(sensorEvent.values[2]);
+        }
+        if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            if(GyroList.isEmpty() == false) {
+                AcceleroList += sensorEvent.values[0] + ",";
+                AcceleroList += sensorEvent.values[1] + ",";
+                AcceleroList += sensorEvent.values[2] + ",";
+                AcceleroList += GyroList.get(0) + ",";
+                AcceleroList += GyroList.get(1) + ",";
+                AcceleroList += GyroList.get(2) + "],";
+
+                GyroList.clear();
+                sensorList += AcceleroList;
+            }
+        }
+    }
+
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+    public void callApi(){
+        endpointUrl += sensorList + "]";
+//        // Api should be called from here
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().url(endpointUrl).build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            // called if server is unreachable
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                try {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i("Failed", "Could not connect to Server");
+                        }
+                    });
+                }catch (Exception f){
+                    throw f;
+                }
+
+            }
+
+            @Override
+            // called if we get a
+            // response from the server
+            public void onResponse(
+                    @NotNull Call call,
+                    @NotNull Response response)
+                    throws IOException {Log.i("url", response.body().string() + "");
+            }
+        });
+
+        endpointUrl = "http://192.168.18.6:5000/detectAccident?input=";
+        sensorList = "[";
+
+    }
 }
+
