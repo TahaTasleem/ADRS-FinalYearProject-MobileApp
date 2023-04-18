@@ -31,13 +31,17 @@ public class Relative_register extends AppCompatActivity {
     private String token,id;
     EditText firstname,lastname,cellno,alternativecellno,relation;
     Button register;
-    private String postUrl= "http://192.168.18.6:3000/api/rider/relative/add/";
+    public String url;
+    private String postUrl;
     JSONObject jsonObject = new JSONObject();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relative_register);
+
+        url =getResources().getString(R.string.my_url);
+        postUrl = url + "api/rider/relative/add/";
 
         firstname = findViewById(R.id.firstname);
         lastname = findViewById(R.id.lastname);

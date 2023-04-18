@@ -5,7 +5,10 @@ import static android.content.Context.SENSOR_SERVICE;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -21,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,7 +57,9 @@ public class Home extends Fragment implements SensorEventListener {
     Button startride;
     private String sensorList = "[";
     private List<Float> GyroList = new ArrayList<>();
-    public String endpointUrl = "http://192.168.18.6:5000/detectAccident?input=";
+    public String url;
+    private String endpointUrl;
+    ScheduledExecutorService executor;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -92,6 +99,8 @@ public class Home extends Fragment implements SensorEventListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        url =getResources().getString(R.string.modelapi_url);
+        endpointUrl = url +"detectAccident?input=";
     }
 
     @Override
@@ -103,13 +112,14 @@ public class Home extends Fragment implements SensorEventListener {
         startride = view.findViewById(R.id.startride);
         startride.setText("Start Ride");
 
-        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-        executor.scheduleAtFixedRate(() -> callApi(), 0, 5, TimeUnit.SECONDS);
+
         startride.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (startride.getText().toString()=="Start Ride")
                 {
+                    executor = Executors.newSingleThreadScheduledExecutor();
+                    executor.scheduleAtFixedRate(() -> callApi(), 0, 5, TimeUnit.SECONDS);
                     SensorManager sensorManager = (SensorManager) getActivity().getSystemService(SENSOR_SERVICE);
                     if (sensorManager != null){
                         // Getting Sensor
@@ -192,13 +202,36 @@ public class Home extends Fragment implements SensorEventListener {
             public void onResponse(
                     @NotNull Call call,
                     @NotNull Response response)
-                    throws IOException {Log.i("url", response.body().string() + "");
+                    throws IOException {
+                String responseBody= response.body().string();
+//                Log.i("url2", responseBody );
+                try {
+                    JSONObject json = new JSONObject(responseBody);
+                    String output = json.getString("Output");
+                    Log.i("o",output);
+                    if(output.equals("no")){
+                        Log.i("acc","no accident occur");
+                    }
+                    else{
+                        executor.shutdownNow();
+                        Timer obj = new Timer();
+                        replaceFragement(obj);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
-        endpointUrl = "http://192.168.18.6:5000/detectAccident?input=";
+        endpointUrl = url + "detectAccident?input=";
         sensorList = "[";
 
+    }
+    private void replaceFragement(Fragment fragment){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout,fragment);
+        fragmentTransaction.commit();
     }
 }
 

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -33,8 +34,10 @@ public class Login extends AppCompatActivity {
     EditText username,password;
     Button login;
     public static int i;
-    public String postUrl= "http://192.168.18.6:3000/api/rider/login";
-    private String getUrl= "http://192.168.18.6:3000/api/rider/relative/all/";
+    public String url;
+    private String getUrl,postUrl;
+    //public String postUrl="http://192.168.18.6:3000/api/rider/login";
+    //private String getUrl= "http://192.168.18.6:3000/api/rider/relative/all/";
 //    private String getUrl="http://127.0.0.1:8000/detectAccident/?input=[[1,1,1,1,1,1],[2,2,2,2,2,2],[3,3,3,3,3,3]]";
     JSONObject jsonObject = new JSONObject();
 
@@ -43,6 +46,10 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        url =getResources().getString(R.string.my_url);
+        postUrl= url+"api/rider/login";
+        getUrl = url+"api/rider/relative/all/";
 
         username= findViewById(R.id.username);
         password= findViewById(R.id.password);

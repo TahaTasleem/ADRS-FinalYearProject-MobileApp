@@ -54,12 +54,16 @@ public class MainActivity extends AppCompatActivity  {
     public String id,token;
     List<String> usernames = new ArrayList<String>();
     List<String> ids = new ArrayList<String>();
-    public String getUrl= "http://192.168.18.6:3000/api/rider/";
+    public String url;
+    private String getUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        url =getResources().getString(R.string.my_url);
+        getUrl = url + "api/rider/";
 
         Intent intent = getIntent();
         token = intent.getStringExtra("token");
@@ -111,7 +115,9 @@ public class MainActivity extends AppCompatActivity  {
                         replaceFragement(new Home());
                         break;
                     case R.id.relatives:
+                        //relative_info obj2 = new relative_info();
                         relatives obj2 = new relatives();
+//                        Timer obj2  = new Timer();
                         obj2.setArguments(bundle);
                         replaceFragement(obj2);
                         break;

@@ -36,13 +36,17 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
     EditText username, password,firstname,lastname,address,Nic,phone,Vehicleno;
     Button register;
     Spinner Vehicletype;
-    public String postUrl= "http://192.168.18.6:3000/api/rider/add";
+    public String url;
+    private String postUrl;
     JSONObject jsonObject = new JSONObject();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        url =getResources().getString(R.string.my_url);
+        postUrl = url + "api/rider/add";
 
         username=findViewById(R.id.username);
         password=findViewById(R.id.password);

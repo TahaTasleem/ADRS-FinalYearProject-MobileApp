@@ -42,8 +42,8 @@ public class ProfileUser extends Fragment {
     EditText username,firstname,lastname,address,nic,cell,vehicleno;
     Spinner vehicletype;Button update;
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    public String getUrl= "http://192.168.18.6:3000/api/rider/specific/";
-    public String putUrl= "http://192.168.18.6:3000/api/rider/update/";
+    public String url;
+    private String getUrl,putUrl;
     private final OkHttpClient client = new OkHttpClient();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,7 +80,9 @@ public class ProfileUser extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        url =getResources().getString(R.string.my_url);
+        getUrl = url + "api/rider/specific/";
+        putUrl = url + "api/rider/update/";
 
 //        if (getArguments() != null) {
 //            mParam1 = getArguments().getString(ARG_PARAM1);
