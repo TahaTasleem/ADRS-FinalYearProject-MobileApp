@@ -1,0 +1,198 @@
+[
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_activity_main.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_info.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_info.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "com.example.accidentdetectionapp-pngs-26:/drawable-anydpi-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_activity_splash.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_activity_register.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/activity_register.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_logout.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_logout.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_home1.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_home1.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/menu_menu.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/menu/menu.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_fragment_home.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_account_circle.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_account_circle.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_fragment_relative_info.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/fragment_relative_info.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_bb.jpg.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/bb.jpg"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_home.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_home.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_question_mark.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_question_mark.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_menu1.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/menu1.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_security.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_security.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_fragment_relatives.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/fragment_relatives.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_fragment_relativeinfo2.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/fragment_relativeinfo2.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_sports_motorsports.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_sports_motorsports.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/xml_backup_rules.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_fragment_relative_register.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/fragment_relative_register.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_abc.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_abc.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_phone.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_phone.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_activity_login.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_person.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_person.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_rider2.jpg.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/rider2.jpg"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_input_bg.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/input_bg.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_ic_email.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/ic_email.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_btn_bg.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/btn_bg.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_fragment_profile_user.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/fragment_profile_user.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/drawable_motorcycle.png.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/drawable/motorcycle.png"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_fragment_timer.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/fragment_timer.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_headermenu.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/headermenu.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_fragment_logout.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/fragment_logout.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/layout_activity_relative_register.xml.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/layout/activity_relative_register.xml"
+    },
+    {
+        "merged": "com.example.accidentdetectionapp-merged_res-31:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.accidentdetectionapp-main-33:/mipmap-xxxhdpi/ic_launcher.webp"
+    }
+]
