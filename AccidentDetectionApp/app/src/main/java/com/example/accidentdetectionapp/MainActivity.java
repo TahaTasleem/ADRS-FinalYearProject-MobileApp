@@ -112,7 +112,9 @@ public class MainActivity extends AppCompatActivity  {
                         replaceFragement(obj);
                         break;
                     case R.id.home:
-                        replaceFragement(new Home());
+                        Home obj3= new Home();
+                        obj3.setArguments(bundle);
+                        replaceFragement(obj3);
                         break;
                     case R.id.relatives:
                         //relative_info obj2 = new relative_info();

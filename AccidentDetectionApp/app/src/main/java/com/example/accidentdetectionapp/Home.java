@@ -57,7 +57,7 @@ public class Home extends Fragment implements SensorEventListener {
     Button startride;
     private String sensorList = "[";
     private List<Float> GyroList = new ArrayList<>();
-    public String url;
+    public String url,id,token;
     private String endpointUrl;
     ScheduledExecutorService executor;
 
@@ -107,7 +107,8 @@ public class Home extends Fragment implements SensorEventListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        id = getArguments().getString("id");
+        token = getArguments().getString("token");
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         startride = view.findViewById(R.id.startride);
         startride.setText("Start Ride");
@@ -214,7 +215,11 @@ public class Home extends Fragment implements SensorEventListener {
                     }
                     else{
                         executor.shutdownNow();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", id);
+                        bundle.putString("token",token);
                         Timer obj = new Timer();
+                        obj.setArguments(bundle);
                         replaceFragement(obj);
                     }
                 } catch (JSONException e) {

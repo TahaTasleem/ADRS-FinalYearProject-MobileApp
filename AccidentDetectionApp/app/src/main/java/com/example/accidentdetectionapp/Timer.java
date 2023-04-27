@@ -34,7 +34,20 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Timer#newInstance} factory method to
@@ -48,7 +61,11 @@ public class Timer extends Fragment {
     int PERMISSION_ID = 44;
     double longitude;
     double latitude;
+    private String url,postUrl,id,token;
+    JSONObject jsonObject = new JSONObject();
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
+    //Timer Variables
     String locationLink;
     private TextView mTextViewCountDown;
     private Button mButtonFalseAlarm;
@@ -92,6 +109,8 @@ public class Timer extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        url = getResources().getString(R.string.my_url);
+        postUrl= url+"api/report/create";
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
     }
@@ -100,6 +119,8 @@ public class Timer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        id = getArguments().getString("id");
+        token = getArguments().getString("token");
         View view = inflater.inflate(R.layout.fragment_timer, container, false);
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
         mButtonFalseAlarm = view.findViewById(R.id.button_falseAlarm);
@@ -119,8 +140,32 @@ public class Timer extends Fragment {
             @SuppressLint("MissingPermission")
             public void onFinish() {
                 // report will be sent here
-                getLastLocation();
-                mButtonFalseAlarm.setVisibility(View.VISIBLE);
+                getLastLocation(new LocationCallback2() {
+                    @Override
+                    public void onLocationAvailable(String locationLink) {
+                        //Make JsonObject and Call Post Api for Storing Accident
+                        try {
+                            jsonObject.put("riderId",id.toString());
+                            jsonObject.put("location",locationLink.toString());
+                            OkHttpClient client = new OkHttpClient();
+                            RequestBody body = RequestBody.create(JSON, String.valueOf(jsonObject));
+                            Request request = new Request.Builder().header("Cookie", "token=" + token).url(postUrl).post(body).build();
+                            client.newCall(request).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                    call.cancel();
+                                }
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    String responseBody= response.body().string();
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                mButtonFalseAlarm.setVisibility(View.INVISIBLE);
             }
         }.start();
     }
@@ -146,8 +191,12 @@ public class Timer extends Fragment {
     }
 
     //Ye sara Location wala code ha
+    public interface LocationCallback2 {
+        void onLocationAvailable(String locationLink);
+    }
+
     @SuppressLint("MissingPermission")
-    public void getLastLocation() {
+    public void getLastLocation(LocationCallback2 callback) {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -160,9 +209,10 @@ public class Timer extends Fragment {
                             longitude = location.getLongitude();
                             latitude = location.getLatitude();
                             locationLink = "https://www.google.com/maps/search/?api=1&query=" + latitude + "," + longitude;
-                            Log.d("Longitude", String.valueOf(longitude));
-                            Log.d("Latitude", String.valueOf(latitude));
+//                            Log.d("Longitude", String.valueOf(longitude));
+//                            Log.d("Latitude", String.valueOf(latitude));
                             Log.d("LocationString", String.valueOf(locationLink));
+                            callback.onLocationAvailable(locationLink);
                         }
                     }
                 });
