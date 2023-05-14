@@ -70,7 +70,7 @@ public class Home extends Fragment implements SensorEventListener, LocationListe
     private float[] gravity = new float[3];
     private float[] linearAcceleration = new float[3];
     boolean isVertical = true;
-    float speed = 12;
+    float speed = 0;
     private LocationManager locationManager;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -251,7 +251,7 @@ public class Home extends Fragment implements SensorEventListener, LocationListe
 //                    if( isVertical==true || output.equals("no") ){
 //                        Log.i("acc","no accident occur");
 //                    }
-                    if(speed<2 || output.equals("no")){
+                    if(speed<5.55 || output.equals("no")){
                         Log.i("acc","no accident occur");
                     }
                     else{

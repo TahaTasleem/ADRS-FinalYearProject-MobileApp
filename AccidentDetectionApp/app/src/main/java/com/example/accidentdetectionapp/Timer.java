@@ -55,7 +55,7 @@ import okhttp3.Response;
  *
  */
 public class Timer extends Fragment {
-    private static final long START_TIME_IN_MILLIS = 6000;
+    private static final long START_TIME_IN_MILLIS = 30000;
     FusedLocationProviderClient mFusedLocationClient;
 
     int PERMISSION_ID = 44;
