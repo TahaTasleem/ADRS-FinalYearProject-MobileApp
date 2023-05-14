@@ -3,16 +3,23 @@ package com.example.accidentdetectionapp;
 import static android.content.Context.SENSOR_SERVICE;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,14 +60,18 @@ import okhttp3.Response;
  * Use the {@link Home#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Home extends Fragment implements SensorEventListener {
+public class Home extends Fragment implements SensorEventListener, LocationListener {
     Button startride;
     private String sensorList = "[";
     private List<Float> GyroList = new ArrayList<>();
     public String url,id,token;
     private String endpointUrl;
     ScheduledExecutorService executor;
-
+    private float[] gravity = new float[3];
+    private float[] linearAcceleration = new float[3];
+    boolean isVertical = true;
+    float speed = 12;
+    private LocationManager locationManager;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -101,6 +112,7 @@ public class Home extends Fragment implements SensorEventListener {
         }
         url =getResources().getString(R.string.modelapi_url);
         endpointUrl = url +"detectAccident?input=";
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
     }
 
     @Override
@@ -158,6 +170,32 @@ public class Home extends Fragment implements SensorEventListener {
             GyroList.add(sensorEvent.values[2]);
         }
         if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            final float alpha = 1f;
+            gravity[0] = alpha * gravity[0] + (1 - alpha) * sensorEvent.values[0];
+            gravity[1] = alpha * gravity[1] + (1 - alpha) * sensorEvent.values[1];
+            gravity[2] = alpha * gravity[2] + (1 - alpha) * sensorEvent.values[2];
+            linearAcceleration[0] = sensorEvent.values[0] - gravity[0];
+            linearAcceleration[1] = sensorEvent.values[1] - gravity[1];
+            linearAcceleration[2] = sensorEvent.values[2] - gravity[2];
+
+            // Determine the orientation of the device
+            if (Math.abs(linearAcceleration[0]) > Math.abs(linearAcceleration[1])) {
+//                if (linearAcceleration[0] > 0) {
+//                    System.out.println("The device is in landscape mode with the top of the device to the right");
+//                } else {
+//                    System.out.println("The device is in landscape mode with the top of the device to the left");
+//                }
+                //Ye landscape ha
+                isVertical=false;
+            } else {
+                isVertical=true;
+//                if (linearAcceleration[1] > 0) {
+//                    System.out.println("The device is in portrait mode with the top of the device pointing up");
+//                } else {
+//                    System.out.println("The device is in portrait mode with the top of the device pointing down");
+//                }
+                //Ye portrait hay
+            }
             if(GyroList.isEmpty() == false) {
                 AcceleroList += sensorEvent.values[0] + ",";
                 AcceleroList += sensorEvent.values[1] + ",";
@@ -210,7 +248,10 @@ public class Home extends Fragment implements SensorEventListener {
                     JSONObject json = new JSONObject(responseBody);
                     String output = json.getString("Output");
                     Log.i("o",output);
-                    if(output.equals("no")){
+//                    if( isVertical==true || output.equals("no") ){
+//                        Log.i("acc","no accident occur");
+//                    }
+                    if(speed<2 || output.equals("no")){
                         Log.i("acc","no accident occur");
                     }
                     else{
@@ -237,6 +278,35 @@ public class Home extends Fragment implements SensorEventListener {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framelayout,fragment);
         fragmentTransaction.commit();
+    }
+    @Override
+    public void onLocationChanged(Location location) {
+        speed = location.getSpeed(); // get the speed in meters/second
+        Log.d("speed", String.format("%.2f m/s", speed));
+    }
+    @Override
+    public void onProviderEnabled(String provider) {}
+
+    @Override
+    public void onProviderDisabled(String provider) {}
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this.getActivity(), new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        locationManager.removeUpdates(this);
     }
 }
 

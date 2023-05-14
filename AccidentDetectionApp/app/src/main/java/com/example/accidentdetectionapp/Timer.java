@@ -172,8 +172,12 @@ public class Timer extends Fragment {
 
     private void stopTimer() {
         mCountDownTimer.cancel();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        bundle.putString("token",token);
         Home h1 = new Home();
-        replaceFragement(h1);
+        h1.setArguments(bundle);
+        replaceFragment(h1);
     }
 
     private void updateCountDownText() {
@@ -183,7 +187,7 @@ public class Timer extends Fragment {
 
         mTextViewCountDown.setText(timeLeftFormatted);
     }
-    private void replaceFragement(Fragment fragment){
+    private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framelayout,fragment);
