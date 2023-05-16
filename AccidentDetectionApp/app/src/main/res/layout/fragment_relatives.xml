@@ -4,11 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".relatives"
-    android:background="@drawable/bb">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_3">
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:fontFamily="@font/dm_serif_display"
+            android:padding="16dp"
+            android:textColor="@color/white"
+            android:text="List of Relatives"
+            android:textAlignment="center"
+            android:textSize="34sp"
+            android:textStyle="bold" />
 
         <ListView
             android:layout_width="match_parent"
@@ -16,7 +30,29 @@
             android:divider="@color/white"
             android:id="@+id/listview"
             android:dividerHeight="2dp"
+            android:layout_below="@id/heading"
             >
         </ListView>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0.8in"
+            android:layout_marginEnd="0.8in"
+            android:layout_marginBottom="1in"
+            android:background="@drawable/btn_bg"
+            android:text="Add"
+            android:textColor="@color/white" />
+
+<!--        <ListView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:divider="@color/white"-->
+<!--            android:id="@+id/listview"-->
+<!--            android:dividerHeight="2dp"-->
+<!--            >-->
+<!--        </ListView>-->
     </RelativeLayout>
 </FrameLayout>

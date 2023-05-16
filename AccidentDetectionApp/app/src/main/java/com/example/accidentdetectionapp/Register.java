@@ -33,7 +33,7 @@ import okhttp3.Response;
 
 public class Register extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView login_link;
-    EditText username, password,firstname,lastname,address,Nic,phone,Vehicleno;
+    EditText username,email, password,firstname,lastname,address,Nic,phone,Vehicleno;
     Button register;
     Spinner Vehicletype;
     public String url;
@@ -53,6 +53,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         firstname=findViewById(R.id.firstname);
         lastname=findViewById(R.id.lastname);
         address=findViewById(R.id.address);
+        email = findViewById(R.id.email);
         Nic=findViewById(R.id.nic);
         phone=findViewById(R.id.cellno);
         Vehicleno=findViewById(R.id.vehicleno);
@@ -69,7 +70,59 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String Username = username.getText().toString();
+                String Email = email.getText().toString();
+                String Password = password.getText().toString();
+                String Firstname = firstname.getText().toString();
+                String Lastname = lastname.getText().toString();
+                String Address = address.getText().toString();
+                String nic = Nic.getText().toString();
+                String Phone = phone.getText().toString();
+                String VehicleNo = Vehicleno.getText().toString();
+
+                if (Username.isEmpty()) {
+                    username.setError("Username field cannot be empty!");
+                    return;
+                }
+                if(Email.isEmpty()){
+                    email.setError("Email field cannot be empty!");
+                    return;
+                }
+
+                if (Password.isEmpty()) {
+                    password.setError("Password field cannot be empty!");
+                    return;
+                }
+                if (Firstname.isEmpty()) {
+                    firstname.setError("Firstname field cannot be empty!");
+                    return;
+                }
+
+                if (Lastname.isEmpty()) {
+                    lastname.setError("Lastname field cannot be empty!");
+                    return;
+                }
+                if (Address.isEmpty()) {
+                    address.setError("Address field cannot be empty!");
+                    return;
+                }
+
+                if (nic.isEmpty()) {
+                    Nic.setError("NIC field cannot be empty!");
+                    return;
+                }
+                if (Phone.isEmpty()) {
+                    phone.setError("Phone No field cannot be empty!");
+                    return;
+                }
+
+                if (VehicleNo.isEmpty()) {
+                    Vehicleno.setError("Vehicle No field cannot be empty!");
+                    return;
+                }
+
                 try{
+                    jsonObject.put("email",email.getText().toString());
                     jsonObject.put("userName",username.getText().toString());
                     jsonObject.put("password",password.getText().toString());
                     jsonObject.put("firstName",firstname.getText().toString());
@@ -79,22 +132,48 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                     jsonObject.put("vehicleType",Vehicletype.getSelectedItem().toString());
                     jsonObject.put("NIC",Nic.getText().toString());
                     jsonObject.put("cell",phone.getText().toString());
-                    Log.i("str","msg "+jsonObject);
                 }
                 catch (JSONException e){
                     e.printStackTrace();
                 }
                 OkHttpClient client = new OkHttpClient();
                 RequestBody body = RequestBody.create(JSON, String.valueOf(jsonObject));
-                okhttp3.Request request = new Request.Builder().url(postUrl).post(body).build();
+                Request request = new Request.Builder().url(postUrl).post(body).build();
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         call.cancel();
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(),"Error in Registration. Please Try Again!",Toast.LENGTH_SHORT).show();                           }
+                        });
+
                     }
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Log.i("resp","response is"+response.body().string());
+                        if (response.code()==201){
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(),"Rider Registered Successfully ",Toast.LENGTH_SHORT).show();                            }
+                            });
+                        }
+                        else if(response.code()==500){
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(),"User Already Exists! ",Toast.LENGTH_SHORT).show();                            }
+                            });
+                        }
+                        else{
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(),"Error in Registration. Please Try Again!",Toast.LENGTH_SHORT).show();                            }
+                            });
+                        }
+
                     }
                 });
             }

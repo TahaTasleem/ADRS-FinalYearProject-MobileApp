@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment_relative_register">
 
     <ScrollView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bb">
+        android:background="@drawable/bg_3">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -20,6 +20,7 @@
                 android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dm_serif_display"
                 android:text="Relative Register"
                 android:textColor="@color/white"
                 android:textSize="34sp"
@@ -133,7 +134,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/input_bg"
-                android:drawableLeft="@drawable/ic_phone"
+                android:drawableLeft="@drawable/ic_abc"
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="Relation"
@@ -152,7 +153,7 @@
                 android:id="@+id/reg"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="35dp"
                 android:background="@drawable/btn_bg"
                 android:backgroundTint="@color/white"
                 android:shadowColor="@color/white"

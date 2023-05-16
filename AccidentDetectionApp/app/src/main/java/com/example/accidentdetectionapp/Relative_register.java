@@ -55,7 +55,29 @@ public class Relative_register extends AppCompatActivity {
         id = intent.getStringExtra("id");
         register.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
+                String Firstname = firstname.getText().toString();
+                String Lastname = lastname.getText().toString();
+                String rel = relation.getText().toString();
+                String Phone = cellno.getText().toString();
+                if (Firstname.isEmpty()) {
+                    firstname.setError("Firstname field cannot be empty!");
+                    return;
+                }
+
+                if (Lastname.isEmpty()) {
+                    lastname.setError("Lastname field cannot be empty!");
+                    return;
+                }
+                if(rel.isEmpty()){
+                    relation.setError("Relation field cannot be empty!");
+                    return;
+                }
+                if(Phone.isEmpty()){
+                    cellno.setError("Phone No field cannot be empty!");
+                    return;
+                }
                 try {
                     jsonObject.put("firstName",firstname.getText().toString());
                     jsonObject.put("lastName",lastname.getText().toString());
@@ -87,10 +109,10 @@ public class Relative_register extends AppCompatActivity {
                             public void run() {
                                 Toast.makeText(getApplicationContext(),"Relative Added Successfully!",Toast.LENGTH_SHORT).show();                            }
                         });
-                        Intent intent2 = new Intent(Relative_register.this,MainActivity.class);
-                        intent2.putExtra("token",token);
-                        intent2.putExtra("id",id);
-                        startActivity(intent2);
+//                        Intent intent2 = new Intent(Relative_register.this,MainActivity.class);
+//                        intent2.putExtra("token",token);
+//                        intent2.putExtra("id",id);
+//                        startActivity(intent2);
                     }
                 });
 

@@ -4,11 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Timer"
-    android:background="@drawable/bb">
+    android:background="@drawable/bg_1">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="150dp"
+            android:text="Timer"
+            android:textSize="34sp"
+            android:padding="16dp"
+            android:fontFamily="@font/dm_serif_display"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
 
         <TextView
             android:id="@+id/text_view_countdown"
@@ -29,6 +44,7 @@
             android:layout_alignBottom="@+id/text_view_countdown"
             android:layout_marginEnd="6dp"
             android:layout_marginBottom="-85dp"
+            android:background="@drawable/btn_bg"
             android:text="False Alarm" />
 
     </RelativeLayout>

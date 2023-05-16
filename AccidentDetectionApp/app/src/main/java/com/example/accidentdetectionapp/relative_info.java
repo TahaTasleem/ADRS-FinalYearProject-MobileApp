@@ -40,9 +40,9 @@ public class relative_info extends Fragment {
     public String id,token,relativeid;
     public String firstName,lastName,cell,alternativeCell,relation2;
     EditText firstname,lastname,cellno,alternativecellno,relation;
-    Button updatebtn,delbtn,addbtn;
+    Button updatebtn,delbtn;
     public String url;
-    private String getUrl,putUrl,delUrl;
+    private String getUrl,putUrl;
     private final OkHttpClient client = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -87,7 +87,7 @@ public class relative_info extends Fragment {
         url =getResources().getString(R.string.my_url);
         getUrl = url + "api/rider/relative/all/";
         putUrl = url + "api/rider/relative/update/";
-        delUrl = url + "api/rider/relative/delete/";
+//        delUrl = url + "api/rider/relative/delete/";
     }
 
     @Override
@@ -104,7 +104,6 @@ public class relative_info extends Fragment {
         relation = view.findViewById(R.id.rel);
         updatebtn = view.findViewById(R.id.updatebtn);
         delbtn = view.findViewById(R.id.delbtn);
-        addbtn = view.findViewById(R.id.addbtn);
 
         Request request = new Request.Builder().header("Cookie", "token="+token).url(getUrl+id).build();
         client.newCall(request).enqueue(new Callback() {
@@ -170,35 +169,35 @@ public class relative_info extends Fragment {
                 });
             }
         });
-        delbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OkHttpClient client = new OkHttpClient();
-                okhttp3.Request request = new Request.Builder().header("Cookie", "token="+token).url(delUrl+relativeid).delete().build();
-                client.newCall(request).enqueue(new Callback() {
-                    @Override public void onFailure(Call call, IOException e) {
-                        e.printStackTrace();
-                    }
-                    @Override public void onResponse(Call call, Response response) throws IOException {
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getActivity(),"Relative Deleted Successfully!",Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }});
-            }
-        });
+//        delbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                OkHttpClient client = new OkHttpClient();
+//                okhttp3.Request request = new Request.Builder().header("Cookie", "token="+token).url(delUrl+relativeid).delete().build();
+//                client.newCall(request).enqueue(new Callback() {
+//                    @Override public void onFailure(Call call, IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    @Override public void onResponse(Call call, Response response) throws IOException {
+//                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(getActivity(),"Relative Deleted Successfully!",Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                    }});
+//            }
+//        });
 
-        addbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent2 = new Intent(getActivity(),Relative_register.class);
-                intent2.putExtra("token",token);
-                intent2.putExtra("id",relativeid);
-                startActivity(intent2);
-            }
-        });
+//        addbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent2 = new Intent(getActivity(),Relative_register.class);
+//                intent2.putExtra("token",token);
+//                intent2.putExtra("id",relativeid);
+//                startActivity(intent2);
+//            }
+//        });
         return view;
     }
     private void setText(final EditText text,final String value) {

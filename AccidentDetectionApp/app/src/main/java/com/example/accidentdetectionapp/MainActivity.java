@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity  {
 //                id=ids.get(i);
 //                Log.i("id",id+69);
 //            }}
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         NavigationView navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawerlayout);
@@ -130,6 +129,7 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             }
         });
+
         /*drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);

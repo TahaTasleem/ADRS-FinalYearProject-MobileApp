@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bb">
+    android:background="@drawable/bg_3">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -128,7 +128,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:background="@drawable/input_bg"
-            android:drawableLeft="@drawable/ic_phone"
+            android:drawableLeft="@drawable/ic_abc"
             android:drawablePadding="10dp"
             android:ems="10"
             android:hint="Relation"
@@ -147,7 +147,7 @@
             android:id="@+id/register"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0.2in"
             android:background="@drawable/btn_bg"
             android:backgroundTint="@color/white"
             android:shadowColor="@color/white"

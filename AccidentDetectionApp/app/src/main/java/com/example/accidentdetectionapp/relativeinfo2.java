@@ -38,9 +38,9 @@ import okhttp3.Response;
 public class relativeinfo2 extends Fragment {
     EditText firstname,lastname,cellno,alternativecellno,relation;
     public String firstName,lastName,cell,alternativeCell,Relation;
-    Button updatebtn,delbtn,addbtn;
+    Button updatebtn;
     public String url;
-    private String getUrl,putUrl,delUrl,postUrl,token,relativeid,id;
+    private String getUrl,putUrl,postUrl,token,relativeid,id;
     private final OkHttpClient client = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     // TODO: Rename parameter arguments, choose names that match
@@ -84,7 +84,7 @@ public class relativeinfo2 extends Fragment {
         url =getResources().getString(R.string.my_url);
         getUrl = url + "api/rider/relative/all/";
         putUrl = url + "api/rider/relative/update/";
-        delUrl = url + "api/rider/relative/delete/";
+//        delUrl = url + "api/rider/relative/delete/";
         postUrl = url + "api/rider/relative/add/";
     }
 
@@ -109,8 +109,7 @@ public class relativeinfo2 extends Fragment {
         relation = view.findViewById(R.id.rel);
 
         updatebtn = view.findViewById(R.id.updatebtn);
-        delbtn = view.findViewById(R.id.delbtn);
-        addbtn = view.findViewById(R.id.addbtn);
+//        delbtn = view.findViewById(R.id.delbtn);
 
         firstname.setText(firstName);
         lastname.setText(lastName);
@@ -154,37 +153,25 @@ public class relativeinfo2 extends Fragment {
             }
         });
 
-        delbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OkHttpClient client = new OkHttpClient();
-                okhttp3.Request request = new Request.Builder().header("Cookie", "token="+token).url(delUrl+relativeid).delete().build();
-                client.newCall(request).enqueue(new Callback() {
-                    @Override public void onFailure(Call call, IOException e) {
-                        e.printStackTrace();
-                    }
-                    @Override public void onResponse(Call call, Response response) throws IOException {
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getActivity(),"Relative Deleted Successfully!",Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }});
-            }
-        });
-
-        addbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("id",id);
-                bundle.putString("token",token);
-                fragment_relative_register r2= new fragment_relative_register();
-                r2.setArguments(bundle);
-                replaceFragement(r2);
-            }
-        });
+//        delbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                OkHttpClient client = new OkHttpClient();
+//                okhttp3.Request request = new Request.Builder().header("Cookie", "token="+token).url(delUrl+relativeid).delete().build();
+//                client.newCall(request).enqueue(new Callback() {
+//                    @Override public void onFailure(Call call, IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    @Override public void onResponse(Call call, Response response) throws IOException {
+//                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(getActivity(),"Relative Deleted Successfully!",Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                    }});
+//            }
+//        });
 
         return view;
     }

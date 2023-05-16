@@ -2,6 +2,9 @@ package com.example.accidentdetectionapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -57,7 +60,20 @@ public class Login extends AppCompatActivity {
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
+                String Username = username.getText().toString();
+                String Password = password.getText().toString();
+
+                if (Username.isEmpty()) {
+                    username.setError("Username field cannot be empty!");
+                    return;
+                }
+
+                if (Password.isEmpty()) {
+                    password.setError("Password field cannot be empty!");
+                    return;
+                }
                 Log.v("msg","msg is "+username.getText().toString());
                 try{
                     jsonObject.put("userName",username.getText().toString());
@@ -77,14 +93,15 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String responseBody= response.body().string();
-                        String name = "",token1= "",id = "";
+                        String name = "",token1= "",id = "",lastname="";
                         try {
                             JSONObject json = new JSONObject(responseBody);
                             JSONObject json2 = json.getJSONObject("validObj");
                             name =json2.getString("firstName");
+                            lastname = json2.getString("lastName");
                             id = json2.getString("_id");
                             token1 = json.getString("token");
-                            String finalName = name,finalToken=token1,finalId= id;
+                            String finalName = name +" "+ lastname,finalToken=token1,finalId= id;
                             new Handler(Looper.getMainLooper()).post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -101,7 +118,7 @@ public class Login extends AppCompatActivity {
                                         intent.putExtra("id",finalId);
                                         startActivity(intent);
                                     }
-                                    Toast.makeText(getApplicationContext(),"Welcome "+ finalName,Toast.LENGTH_SHORT).show();                            }
+                                    Toast.makeText(getApplicationContext(),"Welcome "+finalName,Toast.LENGTH_SHORT).show();                            }
                             });
                             username.getText().clear();
                             password.getText().clear();
@@ -160,5 +177,11 @@ public class Login extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+    private void replaceFragement(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout,fragment);
+        fragmentTransaction.commit();
     }
 }
