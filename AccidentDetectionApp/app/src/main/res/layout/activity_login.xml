@@ -74,7 +74,7 @@
         android:id="@+id/login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/btn_bg"
         android:fontFamily="sans-serif-black"
         android:text="Login"

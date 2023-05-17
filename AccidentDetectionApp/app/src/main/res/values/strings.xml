@@ -4,6 +4,14 @@
         <item>commercial</item>
         <item>private</item>
     </string-array>
+    <string-array name="relativeType">
+        <item>parent</item>
+        <item>guardian</item>
+        <item>sibling</item>
+        <item>children</item>
+        <item>spouse</item>
+        <item>friend</item>
+    </string-array>
     <string name="navigationopen">Open Navigation</string>
     <string name="navigationclose">Close Navigation</string>
 

@@ -16,7 +16,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="135dp"
             android:text="Timer"
             android:textSize="34sp"
             android:padding="16dp"

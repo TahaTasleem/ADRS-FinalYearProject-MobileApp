@@ -2,12 +2,15 @@ package com.example.accidentdetectionapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.media.MediaPlayer;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -15,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
@@ -55,16 +59,17 @@ import okhttp3.Response;
  *
  */
 public class Timer extends Fragment {
+
     private static final long START_TIME_IN_MILLIS = 30000;
     FusedLocationProviderClient mFusedLocationClient;
 
     int PERMISSION_ID = 44;
     double longitude;
     double latitude;
-    private String url,postUrl,id,token;
+    private String url,postUrl,infoUrl,id,token;
     JSONObject jsonObject = new JSONObject();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
+//    MediaPlayer mediaPlayer;
     //Timer Variables
     String locationLink;
     private TextView mTextViewCountDown;
@@ -111,7 +116,9 @@ public class Timer extends Fragment {
         }
         url = getResources().getString(R.string.my_url);
         postUrl= url+"api/report/create";
+        postUrl= url+"api/report/specific";
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
 
     }
 
@@ -122,13 +129,23 @@ public class Timer extends Fragment {
         id = getArguments().getString("id");
         token = getArguments().getString("token");
         View view = inflater.inflate(R.layout.fragment_timer, container, false);
+
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
         mButtonFalseAlarm = view.findViewById(R.id.button_falseAlarm);
         startTimer();
+//        Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getContext().getPackageName() + "/" + R.raw.alarm);
+//        try {
+//            mediaPlayer.setDataSource(getContext(), uri);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        mediaPlayer = MediaPlayer.create(getContext(), R.raw.alarm);
         mButtonFalseAlarm.setOnClickListener(v -> stopTimer());
         return view;
+
     }
     private void startTimer() {
+//        mediaPlayer.start();
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -158,6 +175,11 @@ public class Timer extends Fragment {
                                 @Override
                                 public void onResponse(Call call, Response response) throws IOException {
                                     String responseBody= response.body().string();
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(getActivity(),"Report Sent Succesfully!",Toast.LENGTH_SHORT).show();                            }
+                                    });
                                 }
                             });
                         } catch (JSONException e) {
@@ -171,6 +193,8 @@ public class Timer extends Fragment {
     }
 
     private void stopTimer() {
+//        mediaPlayer.stop();
+//        mediaPlayer.release();
         mCountDownTimer.cancel();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);

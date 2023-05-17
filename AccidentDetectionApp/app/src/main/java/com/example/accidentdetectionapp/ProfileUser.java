@@ -172,6 +172,7 @@ public class ProfileUser extends Fragment {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         call.cancel();
+                        Log.i("fail",e+"");
                     }
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
@@ -180,7 +181,7 @@ public class ProfileUser extends Fragment {
                             public void run() {
                                 Toast.makeText(getActivity(),"Data Updated Successfully!",Toast.LENGTH_SHORT).show();                            }
                         });
-                        Log.i("Success","response is"+response.body().string());
+                        Log.i("Success","response is"+response.toString());
                     }
                 });
             }

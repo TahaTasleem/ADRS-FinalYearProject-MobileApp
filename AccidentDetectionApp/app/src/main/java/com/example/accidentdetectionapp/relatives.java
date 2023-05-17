@@ -130,7 +130,7 @@ public class relatives extends Fragment {
                         alternativeCell = jsonobject.getString("alternativeCell");
                         relation = jsonobject.getString("relation");
                         list.add(firstName);
-                        Log.i("l2", String.valueOf(list));
+//                        Log.i("l2", String.valueOf(list));
                     }
 
                 }
@@ -168,7 +168,6 @@ public class relatives extends Fragment {
                     String alt_cell = jsonobject.getString("alternativeCell");
                     String rel = jsonobject.getString("relation");
 
-
                     nameTextView.setText(name);
                     phoneTextView.setText(cell);
 
@@ -186,6 +185,7 @@ public class relatives extends Fragment {
                                         @Override
                                         public void run() {
                                             Toast.makeText(getActivity(),"Relative Deleted Successfully!",Toast.LENGTH_SHORT).show();
+                                            getActivity().recreate();
                                         }
                                     });
                                 }});
@@ -255,6 +255,7 @@ public class relatives extends Fragment {
                 Intent intent2 = new Intent(getActivity(),Relative_register.class);
                 intent2.putExtra("token",token);
                 intent2.putExtra("id",id);
+                intent2.putExtra("type","Relative");
                 startActivity(intent2);
             }
         });

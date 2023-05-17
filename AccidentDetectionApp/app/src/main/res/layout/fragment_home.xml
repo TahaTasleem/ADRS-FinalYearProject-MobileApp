@@ -8,6 +8,20 @@
     tools:context=".Home">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/text_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:fontFamily="@font/dm_serif_display"
+        android:padding="16dp"
+        android:text="Press Button to Start Ride"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/startride"
         android:layout_width="wrap_content"

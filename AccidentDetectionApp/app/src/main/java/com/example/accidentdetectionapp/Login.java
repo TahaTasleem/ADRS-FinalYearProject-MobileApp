@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -36,6 +35,7 @@ public class Login extends AppCompatActivity {
     TextView redirect;
     EditText username,password;
     Button login;
+    boolean isNull=true;
     public static int i;
     public String url;
     private String getUrl,postUrl;
@@ -74,7 +74,7 @@ public class Login extends AppCompatActivity {
                     password.setError("Password field cannot be empty!");
                     return;
                 }
-                Log.v("msg","msg is "+username.getText().toString());
+//                Log.v("msg","msg is "+username.getText().toString());
                 try{
                     jsonObject.put("userName",username.getText().toString());
                     jsonObject.put("password",password.getText().toString());
@@ -106,7 +106,7 @@ public class Login extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     Relativeexits(finalToken,finalId);
-                                    if(i==1){
+                                    if(isNull == false){
                                         Intent intent = new Intent(Login.this,MainActivity.class);
                                         intent.putExtra("token",finalToken);
                                         intent.putExtra("id",finalId);
@@ -116,6 +116,7 @@ public class Login extends AppCompatActivity {
                                         Intent intent = new Intent(Login.this,Relative_register.class);
                                         intent.putExtra("token",finalToken);
                                         intent.putExtra("id",finalId);
+                                        intent.putExtra("type","Login");
                                         startActivity(intent);
                                     }
                                     Toast.makeText(getApplicationContext(),"Welcome "+finalName,Toast.LENGTH_SHORT).show();                            }
@@ -144,10 +145,8 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
     public void Relativeexits(String token, String id) {
         Request request = new Request.Builder().header("Cookie", "token="+token).url(getUrl+id).build();
-//        Request request = new Request.Builder().url(getUrl).build();
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -155,16 +154,16 @@ public class Login extends AppCompatActivity {
             }
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    String responseBody = response.body().string();Log.i("s",responseBody);
+                    String responseBody = response.body().string();
                     try {
                         JSONObject json = new JSONObject(responseBody);
                         JSONArray json2 = json.getJSONArray("message");
-                        Log.i("len",json2.length()+" 1");
-                        if (json2.length() >= 1) {
-                            i =1;
-                        } else {
-                            i =0;
-                        }
+                        isNull = json2.isNull(0);
+//                        if (json2.isNull(0) == true) {
+//                            i =1;
+//                        } else {
+//                            i =0;
+//                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

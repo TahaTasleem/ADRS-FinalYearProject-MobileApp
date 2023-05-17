@@ -35,9 +35,35 @@
             android:id="@+id/framelayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/appbarlayout">
+            android:layout_below="@+id/appbarlayout"
+            android:background="@drawable/bg_3"
+            >
 
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="200dp"
+                android:fontFamily="@font/dm_serif_display"
+                android:padding="16dp"
+                android:text="Welcome To ADRS App"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="280dp"
+                android:fontFamily="sans-serif"
+                android:padding="16dp"
+                android:text="To use this application, go to the Home page by clicking on the menu, located at the top left of the page"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
         </FrameLayout>
 
     </RelativeLayout>

@@ -40,7 +40,7 @@ public class relative_info extends Fragment {
     public String id,token,relativeid;
     public String firstName,lastName,cell,alternativeCell,relation2;
     EditText firstname,lastname,cellno,alternativecellno,relation;
-    Button updatebtn,delbtn;
+    Button updatebtn;
     public String url;
     private String getUrl,putUrl;
     private final OkHttpClient client = new OkHttpClient();
@@ -103,7 +103,7 @@ public class relative_info extends Fragment {
         alternativecellno = view.findViewById(R.id.alternativeno);
         relation = view.findViewById(R.id.rel);
         updatebtn = view.findViewById(R.id.updatebtn);
-        delbtn = view.findViewById(R.id.delbtn);
+//        delbtn = view.findViewById(R.id.delbtn);
 
         Request request = new Request.Builder().header("Cookie", "token="+token).url(getUrl+id).build();
         client.newCall(request).enqueue(new Callback() {

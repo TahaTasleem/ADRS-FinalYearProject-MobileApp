@@ -27,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ import okhttp3.Response;
  */
 public class Home extends Fragment implements SensorEventListener, LocationListener {
     Button startride;
+    TextView text1;
     private String sensorList = "[";
     private List<Float> GyroList = new ArrayList<>();
     public String url,id,token;
@@ -123,6 +125,7 @@ public class Home extends Fragment implements SensorEventListener, LocationListe
         token = getArguments().getString("token");
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         startride = view.findViewById(R.id.startride);
+        text1= view.findViewById(R.id.text_start);
         startride.setText("Start Ride");
 
 
@@ -132,7 +135,7 @@ public class Home extends Fragment implements SensorEventListener, LocationListe
                 if (startride.getText().toString()=="Start Ride")
                 {
                     executor = Executors.newSingleThreadScheduledExecutor();
-                    executor.scheduleAtFixedRate(() -> callApi(), 0, 5, TimeUnit.SECONDS);
+                    executor.scheduleAtFixedRate(() -> callApi(), 0, 3, TimeUnit.SECONDS);
                     SensorManager sensorManager = (SensorManager) getActivity().getSystemService(SENSOR_SERVICE);
                     if (sensorManager != null){
                         // Getting Sensor
@@ -149,10 +152,12 @@ public class Home extends Fragment implements SensorEventListener, LocationListe
                     } else {
                         Toast.makeText(getActivity(), "Sensor service is not detected.", Toast.LENGTH_SHORT).show();
                     }
+                    text1.setText("Press Button to Stop Ride");
                     startride.setText("Stop Ride");
                     startride.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.btnred));
                 }
                 else if (startride.getText().toString()=="Stop Ride"){
+                    text1.setText("Press Button to Start Ride");
                     startride.setText("Start Ride");
                     startride.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(),R.color.button));
                 }
@@ -251,7 +256,7 @@ public class Home extends Fragment implements SensorEventListener, LocationListe
 //                    if( isVertical==true || output.equals("no") ){
 //                        Log.i("acc","no accident occur");
 //                    }
-                    if(speed<5.55 || output.equals("no")){
+                    if( speed<5.53 || output.equals("no")){
                         Log.i("acc","no accident occur");
                     }
                     else{
@@ -260,6 +265,7 @@ public class Home extends Fragment implements SensorEventListener, LocationListe
                         bundle.putString("id", id);
                         bundle.putString("token",token);
                         Timer obj = new Timer();
+                        Log.i("acc","accident occured");
                         obj.setArguments(bundle);
                         replaceFragement(obj);
                     }
