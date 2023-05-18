@@ -60,7 +60,7 @@ import okhttp3.Response;
  */
 public class Timer extends Fragment {
 
-    private static final long START_TIME_IN_MILLIS = 30000;
+    private static final long START_TIME_IN_MILLIS = 3000;
     FusedLocationProviderClient mFusedLocationClient;
 
     int PERMISSION_ID = 44;
@@ -116,7 +116,7 @@ public class Timer extends Fragment {
         }
         url = getResources().getString(R.string.my_url);
         postUrl= url+"api/report/create";
-        postUrl= url+"api/report/specific";
+//        postUrl= url+"api/report/specific";
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
 
@@ -178,6 +178,7 @@ public class Timer extends Fragment {
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            Log.i("helo",response.toString());
                                             Toast.makeText(getActivity(),"Report Sent Succesfully!",Toast.LENGTH_SHORT).show();                            }
                                     });
                                 }

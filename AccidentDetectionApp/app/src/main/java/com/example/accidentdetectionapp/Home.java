@@ -256,7 +256,7 @@ public class Home extends Fragment implements SensorEventListener, LocationListe
 //                    if( isVertical==true || output.equals("no") ){
 //                        Log.i("acc","no accident occur");
 //                    }
-                    if( speed<5.53 || output.equals("no")){
+                    if(  output.equals("no")){
                         Log.i("acc","no accident occur");
                     }
                     else{
